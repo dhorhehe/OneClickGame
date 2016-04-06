@@ -4,10 +4,13 @@ using System.Collections;
 public class PlayerBehaviour : MonoBehaviour
 {
 
-    private int move;
+    
 
+    //Rigidbody
     private Rigidbody2D rb;
 
+    //Ints and floats
+    private int move;
     public float speedOfPlayer;
     public float maxSpeed;
     public float rotationSpeed;
@@ -22,9 +25,15 @@ public class PlayerBehaviour : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Movement();
+        //Movement();
         Rotation();
+        
 	}
+
+    void FixedUpdate()
+    {
+        Collision();
+    }
 
     void Movement ()
     {
@@ -48,5 +57,18 @@ public class PlayerBehaviour : MonoBehaviour
     void Rotation()
     {
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, rb.velocity.y*rotationSpeed);
+    }
+
+    void Collision()
+    {
+        //RaycastHit2D hitX = Physics2D.Raycast(transform.position, Vector2.right * 0.55f);
+        RaycastHit2D hitY = Physics2D.Raycast(new Vector2(transform.position.x,transform.position.y-0.4f), Vector2.up,0.9f);
+
+        
+
+        if (hitY.collider != null)
+        {
+            Debug.Log(hitY.collider);
+        }
     }
 }
