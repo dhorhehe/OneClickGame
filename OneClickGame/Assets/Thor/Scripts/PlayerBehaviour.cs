@@ -16,13 +16,10 @@ public class PlayerBehaviour : MonoBehaviour
     }
 	
 	// Update is called once per frame
-	void FixedUpdate ()
+	void Update ()
     {
         Movement();
         Rotation();
-
-        Debug.Log(move);
-
 	}
 
     void Movement ()
@@ -32,11 +29,11 @@ public class PlayerBehaviour : MonoBehaviour
             move += 1;
         }
 
-        if (move%2==0 && rb.velocity.y < 5)
+        if (move%2==0 && rb.velocity.y < 9)
         {
            rb.AddForce(new Vector2(0, 0.1f) *Time.deltaTime);
         }
-        if (move%2==1 && rb.velocity.y < -5)
+        if (move%2==1 && rb.velocity.y > -9)
         {
             rb.AddForce(new Vector2(0, -0.1f) *Time.deltaTime);
         }
