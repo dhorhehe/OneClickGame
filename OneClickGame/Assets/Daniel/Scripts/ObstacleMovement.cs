@@ -10,7 +10,7 @@ public class ObstacleMovement : MonoBehaviour
     {
 	    if (gameObject.name == "EnemyCoral(Clone)")
 	    {
-            transform.position = new Vector2(transform.position.x, -3.42f);
+            transform.position = new Vector2(transform.position.x, -3.51f);
 	    }
         else if (gameObject.name == "FishHook(Clone)")
 	    {
