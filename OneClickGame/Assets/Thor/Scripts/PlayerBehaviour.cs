@@ -8,6 +8,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    public float speedOfPlayer;
+    public float maxSpeed;
+    public float rotationSpeed;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -29,13 +33,13 @@ public class PlayerBehaviour : MonoBehaviour
             move += 1;
         }
 
-        if (move%2==0 && rb.velocity.y < 9)
+        if (move%2==0 && rb.velocity.y < maxSpeed)
         {
-           rb.AddForce(new Vector2(0, 0.1f) *Time.deltaTime);
+           rb.AddForce(new Vector2(0, speedOfPlayer) *Time.deltaTime);
         }
-        if (move%2==1 && rb.velocity.y > -9)
+        if (move%2==1 && rb.velocity.y > -maxSpeed)
         {
-            rb.AddForce(new Vector2(0, -0.1f) *Time.deltaTime);
+            rb.AddForce(new Vector2(0, -speedOfPlayer) *Time.deltaTime);
         }
 
         
@@ -43,6 +47,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Rotation()
     {
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, rb.velocity.y*2);
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, rb.velocity.y*rotationSpeed);
     }
 }
