@@ -14,6 +14,8 @@ public class PlayerBehaviour : MonoBehaviour
     public float speedOfPlayer;
     public float maxSpeed;
     public float rotationSpeed;
+    public int score;
+    public int highScore;
 
     private GameObject spawnPoint;
 
@@ -27,6 +29,8 @@ public class PlayerBehaviour : MonoBehaviour
 	    gameOver = true;
 
         spawnPoint = GameObject.Find("SpawnPoint");
+
+	    highScore = PlayerPrefs.GetInt("highScore", 0);
     }
 	
 	// Update is called once per frame
@@ -35,7 +39,8 @@ public class PlayerBehaviour : MonoBehaviour
         Movement();
         Rotation();
         Score();
-        
+        Debug.Log(score);
+        Debug.Log(highScore);
 	}
 
     void FixedUpdate()
@@ -90,7 +95,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (hitY.collider != null || hitX.collider != null)
         {
-            Debug.Log("I am dead");
             gameOver = true;
             rb.velocity = new Vector2(0,0);
         }
@@ -100,7 +104,15 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (spawnPoint.GetComponent<ObstacleSpawner>().timer <= 0)
         {
-            Debug.Log("Score");
+            score += 1;
         }
+
+        if (score > highScore)
+        {
+            PlayerPrefs.SetInt("highScore",score);
+            PlayerPrefs.Save();
+        }
+
+
     }
 }
