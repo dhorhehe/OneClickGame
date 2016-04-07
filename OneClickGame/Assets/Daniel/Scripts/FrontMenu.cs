@@ -19,7 +19,7 @@ public class FrontMenu : MonoBehaviour
 
     void MenuControl()
     {
-        if (menuShowing && Input.GetKeyDown(KeyCode.Space))
+        if (menuShowing && Input.GetKeyDown(KeyCode.Space) || menuShowing && Input.GetKeyDown(KeyCode.Mouse0))
         {
             foreach (GameObject g in frontMenues)
             {
