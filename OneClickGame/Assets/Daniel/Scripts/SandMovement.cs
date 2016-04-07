@@ -9,20 +9,28 @@ public class SandMovement : MonoBehaviour
     public float ObjectLength;
     public int TotalObjects;
 
+    public GameObject Player;
+
 	void Start ()
 	{
         if (Speed == 0)
 	    Speed = GameObject.Find("SpawnPoint").GetComponent<ObstacleSpawner>().Speed;
+
+        Player = GameObject.Find("Player");
 	}
-	
-	void Update () 
+
+    void Update()
     {
-	    
-	}
+
+
+    }
 
     void LateUpdate()
     {
-        MovementControl();
+        if (!Player.GetComponent<PlayerBehaviour>().gameOver)
+        {
+            MovementControl();
+        }
     }
 
     void MovementControl()

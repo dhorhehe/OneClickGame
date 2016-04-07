@@ -4,6 +4,7 @@ using System.Collections;
 public class ObstacleMovement : MonoBehaviour
 {
     public float Speed;
+    public GameObject Player;
 
 
 	void Start () 
@@ -16,11 +17,17 @@ public class ObstacleMovement : MonoBehaviour
 	    {
             transform.position = new Vector2(transform.position.x, GetComponent<FishHook>().StartPosY);
 	    }
+
+        Player = GameObject.Find("Player");
 	}
 	
 	void Update () 
     {
-	    MovementControl();
+	    if (!Player.GetComponent<PlayerBehaviour>().gameOver)
+	    {
+            MovementControl();
+	    }
+
 	}
 
     void MovementControl()
