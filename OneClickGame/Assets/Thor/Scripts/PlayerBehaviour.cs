@@ -104,10 +104,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Score()
     {
-        if (spawnPoint.GetComponent<ObstacleSpawner>().timer <= 0)
+        if (gameOver == false)
         {
-            score += 1;
+            if (spawnPoint.GetComponent<ObstacleSpawner>().timer <= 0)
+            {
+                score += 1;
+            }
         }
+        
 
         if (score > highScore)
         {
