@@ -8,6 +8,8 @@ public class BubbleBehaviour : MonoBehaviour
     public float SpeedMax;
     public float SpeedMin;
 
+    float xMovement = 1;
+
 	void Start ()
 	{
 	    float scale = Random.Range(-0.4f, 0.4f);
@@ -25,5 +27,7 @@ public class BubbleBehaviour : MonoBehaviour
     void Movement()
     {
         transform.Translate(Vector2.up * Time.deltaTime * speed);
+        transform.Translate(Vector2.left * Time.deltaTime * xMovement);
+
     }
 }
