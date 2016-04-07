@@ -31,6 +31,8 @@ public class PlayerBehaviour : MonoBehaviour
         spawnPoint = GameObject.Find("SpawnPoint");
 
 	    highScore = PlayerPrefs.GetInt("highScore", 0);
+
+	    score = 0;
     }
 	
 	// Update is called once per frame
