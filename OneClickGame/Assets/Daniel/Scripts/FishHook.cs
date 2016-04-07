@@ -9,9 +9,9 @@ public class FishHook : MonoBehaviour
 
     bool moveDown = true;
 
-	void Start () 
-    {
-	
+	void Start ()
+	{
+	    EndPosY = EndPosY + Random.Range(0f, 1f);
 	}
 	
 	void Update () 

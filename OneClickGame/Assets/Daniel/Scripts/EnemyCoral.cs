@@ -12,6 +12,8 @@ public class EnemyCoral : MonoBehaviour
 	void Start () 
     {
         transform.position = new Vector2(transform.position.x, StartPosY);
+
+        EndPosY = EndPosY - Random.Range(0f, 1f);
 	}
 	
 	void Update () 

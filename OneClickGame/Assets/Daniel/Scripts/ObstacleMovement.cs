@@ -7,6 +7,8 @@ public class ObstacleMovement : MonoBehaviour
     public GameObject Player;
 
 
+
+
 	void Start () 
     {
 	    if (gameObject.name == "EnemyCoral(Clone)")
@@ -33,5 +35,10 @@ public class ObstacleMovement : MonoBehaviour
     void MovementControl()
     {
         transform.Translate(Vector3.left * Time.deltaTime * Speed);
+
+        if (transform.position.x < -5)
+        {
+            Destroy(gameObject);
+        }
     }
 }
