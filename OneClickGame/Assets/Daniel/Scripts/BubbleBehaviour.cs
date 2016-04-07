@@ -31,5 +31,10 @@ public class BubbleBehaviour : MonoBehaviour
         if (!GameObject.Find("Player").GetComponent<PlayerBehaviour>().gameOver)
         transform.Translate(Vector2.left * Time.deltaTime * xMovement);
 
+
+        if (transform.position.y > 5.557 || transform.position.x < -3.71)
+        {
+            Destroy(gameObject);
+        }
     }
 }
