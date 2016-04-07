@@ -15,11 +15,14 @@ public class PlayerBehaviour : MonoBehaviour
     public float maxSpeed;
     public float rotationSpeed;
 
+    //Bools
+    public bool gameOver;
 	// Use this for initialization
 	void Start ()
     {
         rb = GetComponent<Rigidbody2D>();
-	    move = 0;
+	    move = 1;
+	    gameOver = true;
     }
 	
 	// Update is called once per frame
@@ -37,19 +40,34 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Movement ()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.touchCount == 1)
         {
-            move += 1;
+            if(Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                move += 1;
+                gameOver = false;
+            }
         }
 
-        if (move%2==0 && rb.velocity.y < maxSpeed)
+        if (Input.GetMouseButtonDown(0))
         {
-           rb.AddForce(new Vector2(0, speedOfPlayer) *Time.deltaTime);
+            move += 1;
+            gameOver = false;
         }
-        if (move%2==1 && rb.velocity.y > -maxSpeed)
+        
+
+        if (gameOver == false)
         {
-            rb.AddForce(new Vector2(0, -speedOfPlayer) *Time.deltaTime);
+            if (move % 2 == 0 && rb.velocity.y < maxSpeed)
+            {
+                rb.AddForce(new Vector2(0, speedOfPlayer) * Time.deltaTime);
+            }
+            if (move % 2 == 1 && rb.velocity.y > -maxSpeed)
+            {
+                rb.AddForce(new Vector2(0, -speedOfPlayer) * Time.deltaTime);
+            }
         }
+        
 
         
     }
@@ -61,14 +79,15 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Collision()
     {
-        //RaycastHit2D hitX = Physics2D.Raycast(transform.position, Vector2.right * 0.55f);
         RaycastHit2D hitY = Physics2D.Raycast(new Vector2(transform.position.x,transform.position.y-0.4f), Vector2.up,0.9f);
-
+        RaycastHit2D hitX = Physics2D.Raycast(new Vector2(transform.position.x-0.4f, transform.position.y), Vector2.right,0.9f);
         
 
-        if (hitY.collider != null)
+        if (hitY.collider != null || hitX.collider != null)
         {
-            Debug.Log(hitY.collider);
+            Debug.Log("I am dead");
+            gameOver = true;
+            rb.velocity = new Vector2(0,0);
         }
     }
 }
