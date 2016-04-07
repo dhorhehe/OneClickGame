@@ -6,7 +6,7 @@ public class ObstacleSpawner : MonoBehaviour
     public float Speed;
     public float CoolDown;
 
-    float timer;
+    public float timer;
     public GameObject[] ObstacleList;
 
 	void Start () 

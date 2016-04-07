@@ -15,6 +15,8 @@ public class PlayerBehaviour : MonoBehaviour
     public float maxSpeed;
     public float rotationSpeed;
 
+    private GameObject spawnPoint;
+
     //Bools
     public bool gameOver;
 	// Use this for initialization
@@ -23,6 +25,8 @@ public class PlayerBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 	    move = 1;
 	    gameOver = true;
+
+        spawnPoint = GameObject.Find("SpawnPoint");
     }
 	
 	// Update is called once per frame
@@ -30,6 +34,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Movement();
         Rotation();
+        Score();
         
 	}
 
@@ -88,6 +93,14 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.Log("I am dead");
             gameOver = true;
             rb.velocity = new Vector2(0,0);
+        }
+    }
+
+    void Score()
+    {
+        if (spawnPoint.GetComponent<ObstacleSpawner>().timer <= 0)
+        {
+            Debug.Log("Score");
         }
     }
 }
