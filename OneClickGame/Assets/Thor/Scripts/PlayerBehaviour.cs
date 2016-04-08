@@ -18,6 +18,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float rotationSpeed;
     public int score;
     public int highScore;
+    public float ScoreDelay;
 
     private GameObject spawnPoint;
     private GameObject scoreText;
@@ -52,8 +53,8 @@ public class PlayerBehaviour : MonoBehaviour
         RestartControl();
         //Debug.Log(score);
         //Debug.Log(highScore);
+        
 
-        Debug.Log(rb.velocity.y);
         
     }
 
@@ -119,14 +120,23 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Score()
     {
-        if (gameOver == false)
+        
+
+        if (ScoreDelay <= 0 && gameOver == false)
         {
-            if (spawnPoint.GetComponent<ObstacleSpawner>().timer <= 0)
-            {
-                score += 1;
-                scoreText.GetComponent<Text>().text = score.ToString();
-            }
+                if (spawnPoint.GetComponent<ObstacleSpawner>().timer <= 0)
+                {
+                    score += 1;
+                    scoreText.GetComponent<Text>().text = score.ToString();
+                }
         }
+        else if (gameOver == false)
+        {
+            ScoreDelay -= Time.deltaTime;
+        }
+        
+        Debug.Log(ScoreDelay);
+        
         
 
         if (score > highScore)
@@ -148,12 +158,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Dead()
     {
-        for (float i = transform.position.y; i > 0; i--)
+        //for (float i = transform.position.y; i > 0; i--)
+        if (transform.position.y > -4)
         {
             rb.velocity = new Vector2(0,-4f);
         }
-
-        if (transform.position.y <= -4)
+        else if (transform.position.y <= -4)
         {
             rb.velocity = new Vector2(0, 0);
         }
