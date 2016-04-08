@@ -1,9 +1,11 @@
 fileFormatVersion: 2
 guid: 75a4a0d4f05ea8e4898c7b4b12c66c29
-timeCreated: 1460110048
+timeCreated: 1460115074
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Finger_0
+    21300002: Finger_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -38,7 +40,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -54,7 +56,48 @@ TextureImporter:
     compressionQuality: 50
     allowsAlphaSplitting: 0
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: Finger_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 2, y: 10}
+        - {x: -7, y: 10}
+        - {x: -8, y: 9}
+        - {x: -8, y: -9}
+        - {x: -6, y: -14}
+        - {x: 6, y: -14}
+        - {x: 8, y: -10}
+        - {x: 8, y: 2}
+        - {x: 5, y: 8}
+    - name: Finger_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 0, y: 5}
+        - {x: -3, y: 5}
+        - {x: -5, y: 2}
+        - {x: -8, y: -5}
+        - {x: -8, y: -8}
+        - {x: -4, y: -14}
+        - {x: 6, y: -14}
+        - {x: 8, y: -10}
+        - {x: 8, y: -1}
+        - {x: 4, y: 4}
     outline: []
   spritePackingTag: 
   userData: 
