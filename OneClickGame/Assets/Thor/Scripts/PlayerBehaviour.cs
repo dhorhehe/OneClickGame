@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
@@ -44,6 +45,7 @@ public class PlayerBehaviour : MonoBehaviour
         Movement();
         Rotation();
         Score();
+        RestartControl();
         //Debug.Log(score);
         //Debug.Log(highScore);
 	}
@@ -124,5 +126,13 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
 
+    }
+
+    void RestartControl()
+    {
+        if (gameOver && Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }
