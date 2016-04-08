@@ -107,7 +107,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             gameOver = true;
             rb.velocity = new Vector2(0,0);
-            PlayerSprite.GetComponent<Animator>().enabled = false;
+            //PlayerSprite.GetComponent<Animator>().enabled = false;
             PlayerSprite.GetComponent<SpriteRenderer>().sprite = DeadSprite;
         }
     }
