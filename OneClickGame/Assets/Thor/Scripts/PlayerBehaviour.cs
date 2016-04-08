@@ -18,12 +18,14 @@ public class PlayerBehaviour : MonoBehaviour
     public float rotationSpeed;
     public int score;
     public int highScore;
+    public float ScoreDelay;
 
     private GameObject spawnPoint;
     private GameObject scoreText;
 
     //Bools
     public bool gameOver;
+    
     
     //Sprites
     public Sprite DeadSprite;
@@ -51,7 +53,10 @@ public class PlayerBehaviour : MonoBehaviour
         RestartControl();
         //Debug.Log(score);
         //Debug.Log(highScore);
-	}
+        
+
+        
+    }
 
     void FixedUpdate()
     {
@@ -106,22 +111,32 @@ public class PlayerBehaviour : MonoBehaviour
         if (hitY.collider != null || hitX.collider != null)
         {
             gameOver = true;
-            rb.velocity = new Vector2(0,0);
+            rb.velocity = new Vector2(0,rb.velocity.y);
             PlayerSprite.GetComponent<Animator>().enabled = false;
             PlayerSprite.GetComponent<SpriteRenderer>().sprite = DeadSprite;
+            Dead();
         }
     }
 
     void Score()
     {
-        if (gameOver == false)
+        
+
+        if (ScoreDelay <= 0 && gameOver == false)
         {
-            if (spawnPoint.GetComponent<ObstacleSpawner>().timer <= 0)
-            {
-                score += 1;
-                scoreText.GetComponent<Text>().text = score.ToString();
-            }
+                if (spawnPoint.GetComponent<ObstacleSpawner>().timer <= 0)
+                {
+                    score += 1;
+                    scoreText.GetComponent<Text>().text = score.ToString();
+                }
         }
+        else if (gameOver == false)
+        {
+            ScoreDelay -= Time.deltaTime;
+        }
+        
+        Debug.Log(ScoreDelay);
+        
         
 
         if (score > highScore)
@@ -139,5 +154,21 @@ public class PlayerBehaviour : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+    }
+
+    void Dead()
+    {
+        //for (float i = transform.position.y; i > 0; i--)
+        if (transform.position.y > -4)
+        {
+            rb.velocity = new Vector2(0,-4f);
+        }
+        else if (transform.position.y <= -4)
+        {
+            rb.velocity = new Vector2(0, 0);
+        }
+
+
+
     }
 }

@@ -6,14 +6,14 @@ public class ObstacleMovement : MonoBehaviour
     public float Speed;
     public GameObject Player;
 
-
+    public float startPosY;
 
 
 	void Start () 
     {
 	    if (gameObject.name == "EnemyCoral(Clone)")
 	    {
-            transform.position = new Vector2(transform.position.x, -3.51f);
+            transform.position = new Vector2(transform.position.x, startPosY);
 	    }
         else if (gameObject.name == "FishHook(Clone)")
 	    {
