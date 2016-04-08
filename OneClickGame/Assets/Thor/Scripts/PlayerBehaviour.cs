@@ -19,9 +19,13 @@ public class PlayerBehaviour : MonoBehaviour
     public int score;
     public int highScore;
     public float ScoreDelay;
+    public float DeadSpeed;
 
+    //Gameobjects
     private GameObject spawnPoint;
     private GameObject scoreText;
+    private GameObject scoreText2;
+    public GameObject GameOverUI;
 
     //Bools
     public bool gameOver;
@@ -38,6 +42,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         spawnPoint = GameObject.Find("SpawnPoint");
         scoreText = GameObject.Find("ScoreText");
+        scoreText2 = GameObject.Find("ScoreText2");
+        //gameOverUI = GameObject.Find("GameOverCanvas");
 
 	    highScore = PlayerPrefs.GetInt("highScore", 0);
 
@@ -50,7 +56,6 @@ public class PlayerBehaviour : MonoBehaviour
         Movement();
         Rotation();
         Score();
-        RestartControl();
         //Debug.Log(score);
         //Debug.Log(highScore);
         
@@ -114,6 +119,7 @@ public class PlayerBehaviour : MonoBehaviour
             rb.velocity = new Vector2(0,rb.velocity.y);
             PlayerSprite.GetComponent<Animator>().enabled = false;
             PlayerSprite.GetComponent<SpriteRenderer>().sprite = DeadSprite;
+            GameOverUI.SetActive(true);
             Dead();
         }
     }
@@ -128,6 +134,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     score += 1;
                     scoreText.GetComponent<Text>().text = score.ToString();
+                    scoreText2.GetComponent<Text>().text = score.ToString();
                 }
         }
         else if (gameOver == false)
@@ -148,12 +155,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     }
 
-    void RestartControl()
+    public void RestartControl()
     {
-        if (gameOver && Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(0);
-        }
+
+        SceneManager.LoadScene(0);
+
     }
 
     void Dead()
@@ -161,7 +167,7 @@ public class PlayerBehaviour : MonoBehaviour
         //for (float i = transform.position.y; i > 0; i--)
         if (transform.position.y > -4)
         {
-            rb.velocity = new Vector2(0,-4f);
+            rb.velocity = new Vector2(0,-DeadSpeed);
         }
         else if (transform.position.y <= -4)
         {
