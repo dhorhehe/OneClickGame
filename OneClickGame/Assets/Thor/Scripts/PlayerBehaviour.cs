@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerBehaviour : MonoBehaviour
 {
 
-    
+    public GameObject PlayerSprite;
 
     //Rigidbody
     private Rigidbody2D rb;
@@ -24,6 +24,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     //Bools
     public bool gameOver;
+    
+    //Sprites
+    public Sprite DeadSprite;
 	// Use this for initialization
 	void Start ()
     {
@@ -104,6 +107,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             gameOver = true;
             rb.velocity = new Vector2(0,0);
+            PlayerSprite.GetComponent<Animator>().enabled = false;
+            PlayerSprite.GetComponent<SpriteRenderer>().sprite = DeadSprite;
         }
     }
 
