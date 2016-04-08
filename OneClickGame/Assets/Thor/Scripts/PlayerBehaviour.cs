@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class PlayerBehaviour : MonoBehaviour
     public int highScore;
 
     private GameObject spawnPoint;
+    private GameObject scoreText;
 
     //Bools
     public bool gameOver;
@@ -29,6 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
 	    gameOver = true;
 
         spawnPoint = GameObject.Find("SpawnPoint");
+        scoreText = GameObject.Find("ScoreText");
 
 	    highScore = PlayerPrefs.GetInt("highScore", 0);
 
@@ -41,8 +44,8 @@ public class PlayerBehaviour : MonoBehaviour
         Movement();
         Rotation();
         Score();
-        Debug.Log(score);
-        Debug.Log(highScore);
+        //Debug.Log(score);
+        //Debug.Log(highScore);
 	}
 
     void FixedUpdate()
@@ -109,6 +112,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (spawnPoint.GetComponent<ObstacleSpawner>().timer <= 0)
             {
                 score += 1;
+                scoreText.GetComponent<Text>().text = score.ToString();
             }
         }
         
