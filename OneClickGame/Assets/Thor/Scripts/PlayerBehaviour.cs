@@ -25,6 +25,7 @@ public class PlayerBehaviour : MonoBehaviour
     //Bools
     public bool gameOver;
     
+    
     //Sprites
     public Sprite DeadSprite;
 	// Use this for initialization
@@ -51,7 +52,10 @@ public class PlayerBehaviour : MonoBehaviour
         RestartControl();
         //Debug.Log(score);
         //Debug.Log(highScore);
-	}
+
+        Debug.Log(rb.velocity.y);
+        
+    }
 
     void FixedUpdate()
     {
@@ -106,9 +110,10 @@ public class PlayerBehaviour : MonoBehaviour
         if (hitY.collider != null || hitX.collider != null)
         {
             gameOver = true;
-            rb.velocity = new Vector2(0,0);
+            rb.velocity = new Vector2(0,rb.velocity.y);
             PlayerSprite.GetComponent<Animator>().enabled = false;
             PlayerSprite.GetComponent<SpriteRenderer>().sprite = DeadSprite;
+            Dead();
         }
     }
 
@@ -139,5 +144,21 @@ public class PlayerBehaviour : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+    }
+
+    void Dead()
+    {
+        for (float i = transform.position.y; i > 0; i--)
+        {
+            rb.velocity = new Vector2(0,-4f);
+        }
+
+        if (transform.position.y <= -4)
+        {
+            rb.velocity = new Vector2(0, 0);
+        }
+
+
+
     }
 }
