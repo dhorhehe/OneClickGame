@@ -33,6 +33,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     //Bools
     public bool gameOver;
+    public bool firstStart;
     
     
     //Sprites
@@ -54,6 +55,8 @@ public class PlayerBehaviour : MonoBehaviour
 	    score = 0;
 
         //PlayerPrefs.DeleteAll();
+
+	    firstStart = true;
     }
 	
 	// Update is called once per frame
@@ -76,16 +79,16 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Movement ()
     {
-        if (Input.touchCount == 1)
+        /*if (Input.touchCount == 1)
         {
             if(Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 move += 1;
                 gameOver = false;
             }
-        }
+        }*/
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && firstStart == true)
         {
             move += 1;
             gameOver = false;
@@ -122,6 +125,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (hitY.collider != null || hitX.collider != null)
         {
             gameOver = true;
+            firstStart = false;
             rb.velocity = new Vector2(0,rb.velocity.y);
             PlayerSprite.GetComponent<Animator>().enabled = false;
             PlayerSprite.GetComponent<SpriteRenderer>().sprite = DeadSprite;

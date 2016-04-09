@@ -28,7 +28,7 @@ public class BubbleBehaviour : MonoBehaviour
     {
         transform.Translate(Vector2.up * Time.deltaTime * speed);
 
-        if (!GameObject.Find("Player").GetComponent<PlayerBehaviour>().gameOver)
+        if (!GameObject.Find("Player").GetComponent<PlayerBehaviour>().gameOver || GameObject.Find("Player").GetComponent<PlayerBehaviour>().firstStart)
         transform.Translate(Vector2.left * Time.deltaTime * xMovement);
 
 

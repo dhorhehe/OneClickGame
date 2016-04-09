@@ -27,7 +27,7 @@ public class SandMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!Player.GetComponent<PlayerBehaviour>().gameOver)
+        if (!Player.GetComponent<PlayerBehaviour>().gameOver || Player.GetComponent<PlayerBehaviour>().firstStart)
         {
             MovementControl();
         }
