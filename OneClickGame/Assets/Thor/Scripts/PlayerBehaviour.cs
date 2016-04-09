@@ -129,10 +129,10 @@ public class PlayerBehaviour : MonoBehaviour
             scoreText.active = false;
             scoreText2.active = false;
 
-            GameOverScore.GetComponent<Text>().text = "Score: " + score;
-            GameOverScore2.GetComponent<Text>().text = "Score: " + score;
-            GameOverHighScore.GetComponent<Text>().text = "Highscore: " + PlayerPrefs.GetInt("highScore");
-            GameOverHighScore2.GetComponent<Text>().text = "Highscore: " + PlayerPrefs.GetInt("highScore");
+            GameOverScore.GetComponent<Text>().text = "SCORE: " + score;
+            GameOverScore2.GetComponent<Text>().text = "SCORE: " + score;
+            GameOverHighScore.GetComponent<Text>().text = "HIGHSCORE: " + PlayerPrefs.GetInt("highScore");
+            GameOverHighScore2.GetComponent<Text>().text = "HIGHSCORE: " + PlayerPrefs.GetInt("highScore");
 
             GameOverUI.SetActive(true);
             Dead();
