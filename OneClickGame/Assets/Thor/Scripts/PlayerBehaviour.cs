@@ -26,6 +26,10 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject scoreText;
     private GameObject scoreText2;
     public GameObject GameOverUI;
+    public GameObject GameOverScore;
+    public GameObject GameOverScore2;
+    public GameObject GameOverHighScore;
+    public GameObject GameOverHighScore2;
 
     //Bools
     public bool gameOver;
@@ -48,6 +52,8 @@ public class PlayerBehaviour : MonoBehaviour
 	    highScore = PlayerPrefs.GetInt("highScore", 0);
 
 	    score = 0;
+
+        //PlayerPrefs.DeleteAll();
     }
 	
 	// Update is called once per frame
@@ -119,6 +125,15 @@ public class PlayerBehaviour : MonoBehaviour
             rb.velocity = new Vector2(0,rb.velocity.y);
             PlayerSprite.GetComponent<Animator>().enabled = false;
             PlayerSprite.GetComponent<SpriteRenderer>().sprite = DeadSprite;
+
+            scoreText.active = false;
+            scoreText2.active = false;
+
+            GameOverScore.GetComponent<Text>().text = "Score: " + score;
+            GameOverScore2.GetComponent<Text>().text = "Score: " + score;
+            GameOverHighScore.GetComponent<Text>().text = "Highscore: " + PlayerPrefs.GetInt("highScore");
+            GameOverHighScore2.GetComponent<Text>().text = "Highscore: " + PlayerPrefs.GetInt("highScore");
+
             GameOverUI.SetActive(true);
             Dead();
         }
