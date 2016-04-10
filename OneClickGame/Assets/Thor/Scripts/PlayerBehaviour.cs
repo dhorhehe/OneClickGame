@@ -81,7 +81,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Input.touchCount == 1)
         {
-            if(Input.GetTouch(0).phase == TouchPhase.Began)
+            if(Input.GetTouch(0).phase == TouchPhase.Began && firstStart == true)
             {
                 move += 1;
                 gameOver = false;
