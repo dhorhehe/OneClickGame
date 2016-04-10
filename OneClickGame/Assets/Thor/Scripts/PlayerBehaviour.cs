@@ -79,20 +79,20 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Movement ()
     {
-        /*if (Input.touchCount == 1)
+        if (Input.touchCount == 1)
         {
             if(Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 move += 1;
                 gameOver = false;
             }
-        }*/
+        }
 
-        if (Input.GetMouseButtonDown(0) && firstStart == true)
+        /*if (Input.GetMouseButtonDown(0) && firstStart == true)
         {
             move += 1;
             gameOver = false;
-        }
+        }*/
         
 
         if (gameOver == false)
