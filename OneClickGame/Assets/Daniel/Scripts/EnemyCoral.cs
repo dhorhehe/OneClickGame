@@ -9,15 +9,20 @@ public class EnemyCoral : MonoBehaviour
 
     bool moveUp = true;
 
+    private GameObject player;
+
 	void Start () 
     {
         transform.position = new Vector2(transform.position.x, StartPosY);
 
         EndPosY = EndPosY - Random.Range(0f, 1f);
+
+        player = GameObject.Find("Player");
 	}
 	
 	void Update () 
     {
+        if (!player.GetComponent<PlayerBehaviour>().gameOver)
 	    MoveControl();
 	}
 

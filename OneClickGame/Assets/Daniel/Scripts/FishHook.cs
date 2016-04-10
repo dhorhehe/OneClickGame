@@ -9,14 +9,21 @@ public class FishHook : MonoBehaviour
 
     bool moveDown = true;
 
+    private GameObject player;
+
 	void Start ()
 	{
+        player = GameObject.Find("Player");
 	    EndPosY = EndPosY + Random.Range(0f, 1f);
 	}
 	
 	void Update () 
     {
-	    MoveControl();
+	    if (!player.GetComponent<PlayerBehaviour>().gameOver)
+	    {
+            MoveControl();
+	    }
+	   
 	}
 
     void MoveControl()
