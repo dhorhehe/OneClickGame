@@ -88,11 +88,11 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        /*if (Input.GetMouseButtonDown(0) && firstStart == true)
+        if (Input.GetMouseButtonDown(0) && firstStart == true)
         {
             move += 1;
             gameOver = false;
-        }*/
+        }
         
 
         if (gameOver == false)
