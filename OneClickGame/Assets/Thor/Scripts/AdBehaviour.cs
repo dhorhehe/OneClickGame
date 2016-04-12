@@ -7,12 +7,12 @@ public class AdBehaviour : MonoBehaviour
 {
     [SerializeField] string gameID = "1056811";
 
-    public static int extraLives;
+    public int extraLives;
     public static bool canIGetReward;
     private bool maxlimit;
 
     private int timeNow;
-    private int lastTime;
+    public int lastTime;
 
     public static string zone;
 
@@ -32,6 +32,7 @@ public class AdBehaviour : MonoBehaviour
         Debug.Log(timeNow);
         Debug.Log(lastTime);
         Debug.Log(extraLives);
+        Debug.Log(maxlimit);
 
         
 
@@ -41,6 +42,8 @@ public class AdBehaviour : MonoBehaviour
     {
         zone = "rewardedVideo";
         maxlimit = false;
+        lastTime = PlayerPrefs.GetInt("lastTime", 0);
+        
     }
 
     public void ShowAd()
@@ -85,30 +88,14 @@ public class AdBehaviour : MonoBehaviour
         if (extraLives < 3 && maxlimit == false)
         {
             zone = "rewardedVideo";
+
         }
 
         if (extraLives == 3)
         {
             maxlimit = true;
-            PlayerPrefs.SetInt("lastTime",timeNow);
+
             zone = "skipableInstant";
-
-            WaitAndDelay();
-
-            if (lastTime != timeNow && maxlimit)
-            {
-                PlayerPrefs.SetInt("lastTime", 0);
-                maxlimit = false;
-            }
         }
-
-        
     }
-
-    IEnumerator WaitAndDelay()
-    {
-        //Delays
-        yield return new WaitForSeconds(1);
-    }
-
 }

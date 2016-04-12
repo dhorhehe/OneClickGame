@@ -171,13 +171,6 @@ public class PlayerBehaviour : MonoBehaviour
         {
             scoreDelay -= Time.deltaTime;
         }
-                
-                
-                
-                
-        
-        Debug.Log(scoreDelay);        
-        
 
         if (score > highScore)
         {

@@ -16,7 +16,7 @@ public class BubbleBehaviour : MonoBehaviour
 	    transform.localScale = new Vector2(transform.localScale.x + scale, transform.localScale.y + scale);
 	    speed = Random.Range(SpeedMin, SpeedMax);
 
-        Debug.Log(transform.localScale);
+
 	}
 
 	void Update () 
