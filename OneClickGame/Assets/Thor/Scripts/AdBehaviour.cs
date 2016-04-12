@@ -9,17 +9,38 @@ public class AdBehaviour : MonoBehaviour
 
     public static int extraLives;
     public static bool canIGetReward;
+    private bool maxlimit;
+
+    private int timeNow;
+    private int lastTime;
 
     public static string zone;
+
+    public GameObject sand;
 
     void Awake()
     {
         Advertisement.Initialize(gameID,true);
     }
 
+    void Update()
+    {
+        MaxLifes();
+
+        timeNow = System.DateTime.Now.DayOfYear;
+
+        Debug.Log(timeNow);
+        Debug.Log(lastTime);
+        Debug.Log(extraLives);
+
+        
+
+    }
+
     void Start()
     {
         zone = "rewardedVideo";
+        maxlimit = false;
     }
 
     public void ShowAd()
@@ -41,7 +62,7 @@ public class AdBehaviour : MonoBehaviour
         {
             case ShowResult.Finished:
             {
-                Debug.Log("Get Extra Lives");
+                extraLives += 1;
                 break;
             }
 
@@ -56,13 +77,38 @@ public class AdBehaviour : MonoBehaviour
                 Debug.Log("Ad failed to load or some shit");
                 break;
             }
-
-
         }
     }
 
+    void MaxLifes()
+    {
+        if (extraLives < 3 && maxlimit == false)
+        {
+            zone = "rewardedVideo";
+        }
 
+        if (extraLives == 3)
+        {
+            maxlimit = true;
+            PlayerPrefs.SetInt("lastTime",timeNow);
+            zone = "skipableInstant";
 
+            WaitAndDelay();
 
+            if (lastTime != timeNow && maxlimit)
+            {
+                PlayerPrefs.SetInt("lastTime", 0);
+                maxlimit = false;
+            }
+        }
+
+        
+    }
+
+    IEnumerator WaitAndDelay()
+    {
+        //Delays
+        yield return new WaitForSeconds(1);
+    }
 
 }
