@@ -18,7 +18,8 @@ public class PlayerBehaviour : MonoBehaviour
     public float rotationSpeed;
     public int score;
     public int highScore;
-    public float ScoreDelay;
+    public float scoreDelay;
+    public float scoreTimer;
     public float DeadSpeed;
 
     //Gameobjects
@@ -88,11 +89,11 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        /*if (Input.GetMouseButtonDown(0) && firstStart == true)
+        if (Input.GetMouseButtonDown(0) && firstStart == true)
         {
             move += 1;
             gameOver = false;
-        }*/
+        }
         
 
         if (gameOver == false)
@@ -143,26 +144,39 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    //Skal optimeres
     void Score()
     {
         
 
-        if (ScoreDelay <= 0 && gameOver == false)
+        if (scoreDelay <= 0 && gameOver == false)
         {
-                if (spawnPoint.GetComponent<ObstacleSpawner>().timer <= 0)
-                {
+
+
+            if (scoreTimer <= 0 && gameOver == false)
+            {
+                    scoreTimer = 1;
                     score += 1;
                     scoreText.GetComponent<Text>().text = score.ToString();
                     scoreText2.GetComponent<Text>().text = score.ToString();
                 }
+            else if (scoreTimer >= 0)
+            {
+                scoreTimer -= Time.deltaTime;
+            }
+
+
         }
-        else if (gameOver == false)
+        else if (scoreTimer >= 0 && gameOver == false)
         {
-            ScoreDelay -= Time.deltaTime;
+            scoreDelay -= Time.deltaTime;
         }
+                
+                
+                
+                
         
-        Debug.Log(ScoreDelay);
-        
+        Debug.Log(scoreDelay);        
         
 
         if (score > highScore)
