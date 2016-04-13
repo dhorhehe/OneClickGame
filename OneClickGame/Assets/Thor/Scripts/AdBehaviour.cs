@@ -27,11 +27,10 @@ public class AdBehaviour : MonoBehaviour
     {
         MaxLifes();
 
-        timeNow = System.DateTime.Now.DayOfYear;
-
+        timeNow = System.DateTime.Now.Day;
+        
         Debug.Log(timeNow);
         Debug.Log(lastTime);
-        Debug.Log(extraLives);
         Debug.Log(maxlimit);
 
         
@@ -42,8 +41,9 @@ public class AdBehaviour : MonoBehaviour
     {
         zone = "rewardedVideo";
         maxlimit = false;
+
         lastTime = PlayerPrefs.GetInt("lastTime", 0);
-        
+
     }
 
     public void ShowAd()
@@ -94,8 +94,16 @@ public class AdBehaviour : MonoBehaviour
         if (extraLives == 3)
         {
             maxlimit = true;
-
+            PlayerPrefs.SetInt("lastTime",timeNow);
+            PlayerPrefs.Save();
             zone = "skipableInstant";
         }
+
+        if (lastTime != timeNow && extraLives < 3 && maxlimit == true)
+        {
+            maxlimit = false;
+        }
     }
+
+
 }
