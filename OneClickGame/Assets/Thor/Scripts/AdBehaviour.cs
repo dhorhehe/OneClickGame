@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 using UnityEngine.Advertisements;
 
 
@@ -18,23 +19,24 @@ public class AdBehaviour : MonoBehaviour
 
     public GameObject sand;
 
+    //Daniel Variabler
+    public int DailyLimit;
+    private int EkstraLives;
+
     void Awake()
     {
         Advertisement.Initialize(gameID,true);
+
+        //PlayerPrefs.DeleteAll();
     }
 
     void Update()
     {
-        MaxLifes();
+        //MaxLifes();
+
+
 
         timeNow = System.DateTime.Now.Day;
-        
-        Debug.Log(timeNow);
-        Debug.Log(lastTime);
-        Debug.Log(maxlimit);
-
-        
-
     }
 
     void Start()
@@ -65,7 +67,13 @@ public class AdBehaviour : MonoBehaviour
         {
             case ShowResult.Finished:
             {
-                extraLives += 1;
+                if (zone == "rewardedVideo")
+                {
+                    EkstraLives++;
+                    Debug.Log("EKSTRA LIVES: " + EkstraLives);
+                    PlayerPrefs.SetInt("EkstraLives", EkstraLives);
+                }
+
                 break;
             }
 
@@ -83,27 +91,43 @@ public class AdBehaviour : MonoBehaviour
         }
     }
 
-    void MaxLifes()
+    public void PlayAd()
     {
-        if (extraLives < 3 && maxlimit == false)
+        int AdsPlayedToday = PlayerPrefs.GetInt("AdsPlayedToday");
+        int Date = System.DateTime.Now.DayOfYear;
+        EkstraLives = PlayerPrefs.GetInt("EkstraLives");
+
+        //Tjekker om ny dag, og resetter AdsPlayedToday
+        if (PlayerPrefs.GetInt("Date") != Date)
         {
+            AdsPlayedToday = 0;
+            Debug.Log("RESET");
             zone = "rewardedVideo";
-
         }
 
-        if (extraLives == 3)
+        //Hvis der er spillet under 3 ads, tilføj en til AdsPlayedToday og en til EkstraLives
+        if (AdsPlayedToday < DailyLimit && EkstraLives < DailyLimit)
         {
-            maxlimit = true;
-            PlayerPrefs.SetInt("lastTime",timeNow);
-            PlayerPrefs.Save();
+            AdsPlayedToday++;
+
+            ShowAd();
+
+            Debug.Log("PLAYED AD");
+
+        }
+        //Hvis dailylimit er nået
+        else if (AdsPlayedToday >= DailyLimit)
+        {
+            Debug.Log("ERROR - Played All Ads Today");
             zone = "skipableInstant";
+
+            ShowAd();
         }
 
-        if (lastTime != timeNow && extraLives < 3 && maxlimit == true)
-        {
-            maxlimit = false;
-        }
+        Debug.Log(zone);
+
+        //Sætter playerprefs
+        PlayerPrefs.SetInt("AdsPlayedToday", AdsPlayedToday);
+        PlayerPrefs.SetInt("Date", Date);
     }
-
-
 }

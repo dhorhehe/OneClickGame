@@ -37,7 +37,7 @@ public class ObstacleSpawner : MonoBehaviour
         {
             int obstacleToSpawn = Random.Range(0, ObstacleList.Length);
 
-            Debug.Log(obstacleToSpawn);
+            //Debug.Log(obstacleToSpawn);
 
             if (obstacleToSpawn == lastSpawn)
             {
