@@ -31,10 +31,12 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject GameOverScore2;
     public GameObject GameOverHighScore;
     public GameObject GameOverHighScore2;
+    public GameObject Camera;
 
     //Bools
     public bool gameOver;
     public bool firstStart;
+    public bool extraHPUsed;
     
     
     //Sprites
@@ -58,6 +60,8 @@ public class PlayerBehaviour : MonoBehaviour
         //PlayerPrefs.DeleteAll();
 
 	    firstStart = true;
+
+	    extraHPUsed = true;
     }
 	
 	// Update is called once per frame
@@ -66,7 +70,7 @@ public class PlayerBehaviour : MonoBehaviour
         Movement();
         Rotation();
         Score();
-        //Debug.Log(score);
+        Debug.Log(extraHPUsed);
         //Debug.Log(highScore);
         
 
@@ -122,26 +126,46 @@ public class PlayerBehaviour : MonoBehaviour
         RaycastHit2D hitY = Physics2D.Raycast(new Vector2(transform.position.x,transform.position.y-0.4f), Vector2.up,0.9f);
         RaycastHit2D hitX = Physics2D.Raycast(new Vector2(transform.position.x-0.4f, transform.position.y), Vector2.right,0.9f);
         
-
-        if (hitY.collider != null || hitX.collider != null)
+        if (!extraHPUsed)
         {
-            gameOver = true;
-            firstStart = false;
-            rb.velocity = new Vector2(0,rb.velocity.y);
-            PlayerSprite.GetComponent<Animator>().enabled = false;
-            PlayerSprite.GetComponent<SpriteRenderer>().sprite = DeadSprite;
 
-            scoreText.active = false;
-            scoreText2.active = false;
+            GetComponent<Collider2D>().enabled = false;
 
-            GameOverScore.GetComponent<Text>().text = "SCORE: " + score;
-            GameOverScore2.GetComponent<Text>().text = "SCORE: " + score;
-            GameOverHighScore.GetComponent<Text>().text = "HIGHSCORE: " + PlayerPrefs.GetInt("highScore");
-            GameOverHighScore2.GetComponent<Text>().text = "HIGHSCORE: " + PlayerPrefs.GetInt("highScore");
+             if (hitY.collider != null && hitY.collider.name != "Player" || hitX.collider != null && hitX.collider.name != "Player")
+             {
+                    gameOver = true;
+                    firstStart = false;
+                    rb.velocity = new Vector2(0,rb.velocity.y);
+                    PlayerSprite.GetComponent<Animator>().enabled = false;
+                    PlayerSprite.GetComponent<SpriteRenderer>().sprite = DeadSprite;
 
-            GameOverUI.SetActive(true);
-            Dead();
+                    scoreText.active = false;
+                    scoreText2.active = false;
+
+                    GameOverScore.GetComponent<Text>().text = "SCORE: " + score;
+                    GameOverScore2.GetComponent<Text>().text = "SCORE: " + score;
+                    GameOverHighScore.GetComponent<Text>().text = "HIGHSCORE: " + PlayerPrefs.GetInt("highScore");
+                    GameOverHighScore2.GetComponent<Text>().text = "HIGHSCORE: " + PlayerPrefs.GetInt("highScore");
+
+                    GameOverUI.SetActive(true);
+                    Dead();
+            }
         }
+
+        if (extraHPUsed)
+        {
+            GetComponent<Collider2D>().enabled = true;
+
+            if (hitY.collider != null && hitY.collider.name != "Player" || hitX.collider != null && hitX.collider.name != "Player")
+            {
+                Camera.GetComponent<CameraShakeScript>().shakeDuration = 0.1f;
+                StartCoroutine(WaitAndDelay(0.7f));
+            }
+        }
+
+        
+        
+
     }
 
     //Skal optimeres
@@ -190,7 +214,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Dead()
     {
-        //for (float i = transform.position.y; i > 0; i--)
         if (transform.position.y > -4)
         {
             rb.velocity = new Vector2(0,-DeadSpeed);
@@ -203,4 +226,12 @@ public class PlayerBehaviour : MonoBehaviour
 
 
     }
+
+    IEnumerator WaitAndDelay(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+
+        extraHPUsed = false;
+    }
+
 }
