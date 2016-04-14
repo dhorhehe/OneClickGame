@@ -61,7 +61,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	    firstStart = true;
 
-	    extraHPUsed = true;
+	    extraHPUsed = false;
     }
 	
 	// Update is called once per frame
@@ -139,6 +139,11 @@ public class PlayerBehaviour : MonoBehaviour
                     PlayerSprite.GetComponent<Animator>().enabled = false;
                     PlayerSprite.GetComponent<SpriteRenderer>().sprite = DeadSprite;
 
+                    if (scoreText.active == true)
+                    {
+                        Camera.GetComponent<CameraShakeScript>().shakeDuration = 0.1f;
+                    }
+
                     scoreText.active = false;
                     scoreText2.active = false;
 
@@ -175,8 +180,6 @@ public class PlayerBehaviour : MonoBehaviour
     //Skal optimeres
     void Score()
     {
-        
-
         if (scoreDelay <= 0 && gameOver == false)
         {
 
