@@ -125,7 +125,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         RaycastHit2D hitY = Physics2D.Raycast(new Vector2(transform.position.x,transform.position.y-0.4f), Vector2.up,0.9f);
         RaycastHit2D hitX = Physics2D.Raycast(new Vector2(transform.position.x-0.4f, transform.position.y), Vector2.right,0.9f);
-        
+
         if (!extraHPUsed)
         {
 
@@ -154,9 +154,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (extraHPUsed)
         {
+            RaycastHit2D hitY2 = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.4f), Vector2.up, 0.09f);
+
+            //Debug.DrawLine(new Vector2(transform.position.x, transform.position.y + 0.4f),new Vector2(transform.position.x, transform.position.y + 0.4f) + Vector2.up * 0.08f);
+
             GetComponent<Collider2D>().enabled = true;
 
-            if (hitY.collider != null && hitY.collider.name != "Player" || hitX.collider != null && hitX.collider.name != "Player")
+            if (hitY.collider != null && hitY.collider.name != "Player" || hitY2.collider != null && hitY2.collider.name != "Player" || hitX.collider != null && hitX.collider.name != "Player")
             {
                 Camera.GetComponent<CameraShakeScript>().shakeDuration = 0.1f;
                 StartCoroutine(WaitAndDelay(0.7f));
