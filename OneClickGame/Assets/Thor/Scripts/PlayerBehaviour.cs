@@ -41,6 +41,11 @@ public class PlayerBehaviour : MonoBehaviour
     
     //Sprites
     public Sprite DeadSprite;
+
+    //Sound
+    public AudioClip[] Sounds;
+    private AudioSource _audioSource;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -48,6 +53,7 @@ public class PlayerBehaviour : MonoBehaviour
 	    move = 1;
 	    gameOver = true;
 
+	    _audioSource = gameObject.GetComponent<AudioSource>();
         spawnPoint = GameObject.Find("SpawnPoint");
         scoreText = GameObject.Find("ScoreText");
         scoreText2 = GameObject.Find("ScoreText2");
@@ -109,6 +115,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && firstStart == true)
         {
+            PlaySound("Splash");
             move += 1;
             gameOver = false;
         }
@@ -243,9 +250,15 @@ public class PlayerBehaviour : MonoBehaviour
         {
             rb.velocity = new Vector2(0, 0);
         }
+    }
 
-
-
+    void PlaySound(string WhatSound)
+    {
+        if (WhatSound == "Splash")
+        {
+            _audioSource.clip = Sounds[Random.Range(0, 4)];
+            _audioSource.Play();
+        }
     }
 
     IEnumerator WaitAndDelay(float delayTime)
