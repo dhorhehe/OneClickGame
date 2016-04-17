@@ -174,6 +174,8 @@ public class PlayerBehaviour : MonoBehaviour
                     GameOverHighScore2.GetComponent<Text>().text = "HIGHSCORE: " + PlayerPrefs.GetInt("highScore");
 
                     GameOverUI.SetActive(true);
+                    _audioSource.clip = Sounds[1];
+                    _audioSource.Play();
                     Dead();
             }
         }
@@ -256,7 +258,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (WhatSound == "Splash")
         {
-            _audioSource.clip = Sounds[Random.Range(0, 4)];
+            _audioSource.clip = Sounds[0];
             _audioSource.Play();
         }
     }
