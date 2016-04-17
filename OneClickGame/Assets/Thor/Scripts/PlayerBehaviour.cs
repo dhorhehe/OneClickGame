@@ -61,7 +61,22 @@ public class PlayerBehaviour : MonoBehaviour
 
 	    firstStart = true;
 
-	    extraHPUsed = false;
+        //extraHPUsed = false;
+
+	    int EkstraLives = PlayerPrefs.GetInt("EkstraLives");
+
+        if (PlayerPrefs.GetInt("UseExtraLife") == 1 && EkstraLives != 0)
+        {
+            extraHPUsed = true;
+            EkstraLives --;
+        }
+        else
+        {
+            extraHPUsed = false;
+        }
+
+        PlayerPrefs.SetInt("EkstraLives", EkstraLives);
+	    
     }
 	
 	// Update is called once per frame
@@ -72,9 +87,8 @@ public class PlayerBehaviour : MonoBehaviour
         Score();
         Debug.Log(extraHPUsed);
         //Debug.Log(highScore);
-        
 
-        
+
     }
 
     void FixedUpdate()
@@ -239,6 +253,7 @@ public class PlayerBehaviour : MonoBehaviour
         yield return new WaitForSeconds(delayTime);
 
         extraHPUsed = false;
+        PlayerPrefs.SetInt("UseExtraLife", 0);
     }
 
 }

@@ -17,6 +17,9 @@ public class AdBehaviour : MonoBehaviour
     public static string zone;
 
     public GameObject sand;
+    public GameObject CheckBox;
+    public GameObject SpeakingBox1;
+    public GameObject SpeakingBox2;
 
     //Daniel Variabler
     public int DailyLimit;
@@ -71,6 +74,10 @@ public class AdBehaviour : MonoBehaviour
                     EkstraLives++;
                     Debug.Log("EKSTRA LIVES: " + EkstraLives);
                     PlayerPrefs.SetInt("EkstraLives", EkstraLives);
+
+                    CheckBox.SetActive(true);
+                    SpeakingBox1.SetActive(true);
+                    SpeakingBox2.SetActive(false);
                 }
 
                 break;
