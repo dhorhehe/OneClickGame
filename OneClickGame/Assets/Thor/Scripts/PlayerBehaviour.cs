@@ -215,6 +215,10 @@ public class PlayerBehaviour : MonoBehaviour
                     score += 1;
                     scoreText.GetComponent<Text>().text = score.ToString();
                     scoreText2.GetComponent<Text>().text = score.ToString();
+
+                    _audioSource.clip = Sounds[2];
+                    _audioSource.volume = 1;
+                    _audioSource.Play();
                 }
             else if (scoreTimer >= 0)
             {
