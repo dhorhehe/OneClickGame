@@ -119,7 +119,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        /*if (Input.GetMouseButtonDown(0) && firstStart == true)
+        if (Input.GetMouseButtonDown(0) && firstStart == true)
         {
             if (MuteButtonBehaviour.mute == false)
             {
@@ -128,7 +128,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             move += 1;
             gameOver = false;
-        }*/
+        }
         
 
         if (gameOver == false)
