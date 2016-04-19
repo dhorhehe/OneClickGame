@@ -32,6 +32,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject GameOverHighScore;
     public GameObject GameOverHighScore2;
     public GameObject Camera;
+    public GameObject ExtraLifeUI;
 
     //Bools
     public bool gameOver;
@@ -194,6 +195,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 Camera.GetComponent<CameraShakeScript>().shakeDuration = 0.1f;
                 StartCoroutine(WaitAndDelay(0.7f));
+                ExtraLifeUI.SetActive(true);
             }
         }
 
