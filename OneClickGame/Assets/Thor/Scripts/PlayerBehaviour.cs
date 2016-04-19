@@ -109,12 +109,17 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if(Input.GetTouch(0).phase == TouchPhase.Began && firstStart == true)
             {
+                if (MuteButtonBehaviour.mute == false)
+                {
+                    PlaySound("Splash");
+                }
+
                 move += 1;
                 gameOver = false;
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && firstStart == true)
+        /*if (Input.GetMouseButtonDown(0) && firstStart == true)
         {
             if (MuteButtonBehaviour.mute == false)
             {
@@ -123,7 +128,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             move += 1;
             gameOver = false;
-        }
+        }*/
         
 
         if (gameOver == false)
