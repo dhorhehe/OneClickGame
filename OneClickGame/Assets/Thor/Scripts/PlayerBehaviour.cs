@@ -116,7 +116,11 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && firstStart == true)
         {
-            PlaySound("Splash");
+            if (MuteButtonBehaviour.mute == false)
+            {
+                PlaySound("Splash");
+            }
+
             move += 1;
             gameOver = false;
         }
@@ -164,9 +168,13 @@ public class PlayerBehaviour : MonoBehaviour
                     if (scoreText.active == true)
                     {
                         Camera.GetComponent<CameraShakeScript>().shakeDuration = 0.1f;
-                        _audioSource.clip = Sounds[1];
-                        _audioSource.volume = 1;
-                        _audioSource.Play();
+                        
+                        if (MuteButtonBehaviour.mute == false)
+                        {
+                            _audioSource.clip = Sounds[1];
+                            _audioSource.volume = 1;
+                            _audioSource.Play(); 
+                        }
                     }
 
                     scoreText.active = false;
@@ -218,9 +226,13 @@ public class PlayerBehaviour : MonoBehaviour
                     scoreText.GetComponent<Text>().text = score.ToString();
                     scoreText2.GetComponent<Text>().text = score.ToString();
 
-                    _audioSource.clip = Sounds[2];
-                    _audioSource.volume = 1;
-                    _audioSource.Play();
+                    if (MuteButtonBehaviour.mute == false)
+                    {
+                        _audioSource.clip = Sounds[2];
+                        _audioSource.volume = 1;
+                        _audioSource.Play();
+                    }
+                    
                 }
             else if (scoreTimer >= 0)
             {
