@@ -32,6 +32,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject GameOverHighScore;
     public GameObject GameOverHighScore2;
     public GameObject Camera;
+    public GameObject ExtraLifeUI;
 
     //Bools
     public bool gameOver;
@@ -41,6 +42,11 @@ public class PlayerBehaviour : MonoBehaviour
     
     //Sprites
     public Sprite DeadSprite;
+
+    //Sound
+    public AudioClip[] Sounds;
+    private AudioSource _audioSource;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -48,6 +54,7 @@ public class PlayerBehaviour : MonoBehaviour
 	    move = 1;
 	    gameOver = true;
 
+	    _audioSource = gameObject.GetComponent<AudioSource>();
         spawnPoint = GameObject.Find("SpawnPoint");
         scoreText = GameObject.Find("ScoreText");
         scoreText2 = GameObject.Find("ScoreText2");
@@ -109,6 +116,11 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && firstStart == true)
         {
+            if (MuteButtonBehaviour.mute == false)
+            {
+                PlaySound("Splash");
+            }
+
             move += 1;
             gameOver = false;
         }
@@ -156,6 +168,13 @@ public class PlayerBehaviour : MonoBehaviour
                     if (scoreText.active == true)
                     {
                         Camera.GetComponent<CameraShakeScript>().shakeDuration = 0.1f;
+                        
+                        if (MuteButtonBehaviour.mute == false)
+                        {
+                            _audioSource.clip = Sounds[1];
+                            _audioSource.volume = 1;
+                            _audioSource.Play(); 
+                        }
                     }
 
                     scoreText.active = false;
@@ -167,6 +186,7 @@ public class PlayerBehaviour : MonoBehaviour
                     GameOverHighScore2.GetComponent<Text>().text = "HIGHSCORE: " + PlayerPrefs.GetInt("highScore");
 
                     GameOverUI.SetActive(true);
+                    
                     Dead();
             }
         }
@@ -183,6 +203,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 Camera.GetComponent<CameraShakeScript>().shakeDuration = 0.1f;
                 StartCoroutine(WaitAndDelay(0.7f));
+                ExtraLifeUI.SetActive(true);
             }
         }
 
@@ -204,6 +225,14 @@ public class PlayerBehaviour : MonoBehaviour
                     score += 1;
                     scoreText.GetComponent<Text>().text = score.ToString();
                     scoreText2.GetComponent<Text>().text = score.ToString();
+
+                    if (MuteButtonBehaviour.mute == false)
+                    {
+                        _audioSource.clip = Sounds[2];
+                        _audioSource.volume = 1;
+                        _audioSource.Play();
+                    }
+                    
                 }
             else if (scoreTimer >= 0)
             {
@@ -243,9 +272,16 @@ public class PlayerBehaviour : MonoBehaviour
         {
             rb.velocity = new Vector2(0, 0);
         }
+    }
 
-
-
+    void PlaySound(string WhatSound)
+    {
+        if (WhatSound == "Splash")
+        {
+            _audioSource.clip = Sounds[0];
+            _audioSource.volume = 0.1f;
+            _audioSource.Play();
+        }
     }
 
     IEnumerator WaitAndDelay(float delayTime)
