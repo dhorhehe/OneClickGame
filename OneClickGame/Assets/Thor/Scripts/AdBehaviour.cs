@@ -119,7 +119,19 @@ public class AdBehaviour : MonoBehaviour
         {
             AdsPlayedToday++;
 
-            ShowAd();
+            int DontShow = PlayerPrefs.GetInt("DontShow");
+            if (DontShow == 1)
+            {
+                ShowAd();
+            }
+            else
+            {
+                PopFade.SetActive(true);
+                PopUp2.SetActive(true);
+            }
+            
+
+
 
             Debug.Log("PLAYED AD");
 
@@ -153,5 +165,17 @@ public class AdBehaviour : MonoBehaviour
     {
         PopFade.SetActive(false);
         PopUp1.SetActive(false);
+    }
+
+    public void PlayAdAfterInfo(bool DontShow)
+    {
+        PopFade.SetActive(false);
+        PopUp2.SetActive(false);
+        ShowAd();
+
+        if (DontShow)
+        {
+            PlayerPrefs.SetInt("DontShow", 1);
+        }
     }
 }
