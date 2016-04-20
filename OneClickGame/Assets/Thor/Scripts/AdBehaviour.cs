@@ -20,6 +20,9 @@ public class AdBehaviour : MonoBehaviour
     public GameObject CheckBox;
     public GameObject SpeakingBox1;
     public GameObject SpeakingBox2;
+    public GameObject PopUp1;
+    public GameObject PopUp2;
+    public GameObject PopFade;
 
     //Daniel Variabler
     public int DailyLimit;
@@ -125,9 +128,10 @@ public class AdBehaviour : MonoBehaviour
         else if (AdsPlayedToday >= DailyLimit)
         {
             Debug.Log("ERROR - Played All Ads Today");
-            zone = "skipableInstant";
+            
+            PopFade.SetActive(true);
+            PopUp1.SetActive(true);
 
-            ShowAd();
         }
 
         Debug.Log(zone);
@@ -135,5 +139,19 @@ public class AdBehaviour : MonoBehaviour
         //Sætter playerprefs
         PlayerPrefs.SetInt("AdsPlayedToday", AdsPlayedToday);
         PlayerPrefs.SetInt("Date", Date);
+    }
+
+    public void WatchSupportAd()
+    {
+        zone = "skipableInstant";
+        ShowAd();
+        PopFade.SetActive(false);
+        PopUp1.SetActive(false);
+    }
+
+    public void RemovePopUp()
+    {
+        PopFade.SetActive(false);
+        PopUp1.SetActive(false);
     }
 }

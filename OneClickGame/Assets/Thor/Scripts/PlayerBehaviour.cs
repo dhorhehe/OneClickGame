@@ -109,6 +109,11 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if(Input.GetTouch(0).phase == TouchPhase.Began && firstStart == true)
             {
+                if (MuteButtonBehaviour.mute == false)
+                {
+                    PlaySound("Splash");
+                }
+
                 move += 1;
                 gameOver = false;
             }
