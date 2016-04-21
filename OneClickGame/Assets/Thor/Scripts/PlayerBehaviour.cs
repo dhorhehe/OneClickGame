@@ -284,7 +284,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (WhatSound == "Splash")
         {
             _audioSource.clip = Sounds[0];
-            _audioSource.volume = 0.1f;
+            _audioSource.volume = 0.3f;
             _audioSource.Play();
         }
     }
