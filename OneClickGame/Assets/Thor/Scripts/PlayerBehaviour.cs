@@ -44,8 +44,8 @@ public class PlayerBehaviour : MonoBehaviour
     public Sprite DeadSprite;
 
     //Sound
-    public AudioClip[] Sounds;
     private AudioSource _audioSource;
+    public AudioSource _audioSourceIGUI;
 
 	// Use this for initialization
 	void Start ()
@@ -111,7 +111,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 if (MuteButtonBehaviour.mute == false)
                 {
-                    PlaySound("Splash");
+                    _audioSource.Play();
                 }
 
                 move += 1;
@@ -123,7 +123,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (MuteButtonBehaviour.mute == false)
             {
-                PlaySound("Splash");
+                _audioSource.Play();
             }
 
             move += 1;
@@ -176,9 +176,7 @@ public class PlayerBehaviour : MonoBehaviour
                         
                         if (MuteButtonBehaviour.mute == false)
                         {
-                            _audioSource.clip = Sounds[1];
-                            _audioSource.volume = 1;
-                            _audioSource.Play(); 
+                            
                         }
                     }
 
@@ -233,9 +231,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                     if (MuteButtonBehaviour.mute == false)
                     {
-                        _audioSource.clip = Sounds[2];
-                        _audioSource.volume = 1;
-                        _audioSource.Play();
+                        _audioSourceIGUI.Play();
                     }
                     
                 }
@@ -276,16 +272,6 @@ public class PlayerBehaviour : MonoBehaviour
         else if (transform.position.y <= -4)
         {
             rb.velocity = new Vector2(0, 0);
-        }
-    }
-
-    void PlaySound(string WhatSound)
-    {
-        if (WhatSound == "Splash")
-        {
-            _audioSource.clip = Sounds[0];
-            _audioSource.volume = 0.3f;
-            _audioSource.Play();
         }
     }
 
