@@ -8,11 +8,15 @@ public class NameHandler : MonoBehaviour
     private string newName;
     public static string currentName;
 
+
 	// Use this for initialization
 	void Start ()
 	{
 	    currentName = PlayerPrefs.GetString("currentName");
 	    newName = PlayerPrefs.GetString("NewName");
+
+
+        gameObject.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Enter name here...";
 	}
 	
 	// Update is called once per frame
