@@ -1,9 +1,11 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using UnityEngine;
 
 public class ScoreEntry
@@ -63,24 +65,16 @@ public static class Highscores
         return entries.First();
     } 
 
-    public static void PostHighscore(string name, int score)
+    public static IEnumerator PostHighscore(string name, int score)
     {
-        var httpWebRequest = (HttpWebRequest)WebRequest.Create(ApiLink);
-        httpWebRequest.ContentType = "application/json";
-        httpWebRequest.Method = "POST";
+        string json = "[{\"name\":\"" + name + "\",\"score\":" + score + "}]";
+        WWW www = new WWW(ApiLink, Encoding.UTF8.GetBytes(json));
+        yield return www;
 
-        using (StreamWriter streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+        if (!string.IsNullOrEmpty(www.error))
         {
-            string json = "[{\"name\":\"" + name + "\",\"score\":" + score + "}]";
-
-            Debug.Log(json);
-
-            streamWriter.Write(json);
-            streamWriter.Flush();
-            streamWriter.Close();
+            Debug.Log("Error downloading: " + www.error);
         }
-
-        httpWebRequest.GetResponse();
     }
 
     private static ICollection<ScoreEntry> Deserialize(string json)

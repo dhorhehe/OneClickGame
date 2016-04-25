@@ -15,7 +15,7 @@ public class HighscoresExample : MonoBehaviour
     {
         if (GUI.Button(new Rect(0, 0, 100, 100), "Insert new score"))
         {
-            Highscores.PostHighscore("Testname", Mathf.RoundToInt(Random.Range(0, 100)));
+            StartCoroutine(Highscores.PostHighscore("Testname", Mathf.RoundToInt(Random.Range(0, 100))));
             PrintTopScores();
         }
     }
