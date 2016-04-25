@@ -92,7 +92,7 @@ public class PlayerBehaviour : MonoBehaviour
         Movement();
         Rotation();
         Score();
-        Debug.Log(extraHPUsed);
+        //Debug.Log(extraHPUsed);
         //Debug.Log(highScore);
 
 
