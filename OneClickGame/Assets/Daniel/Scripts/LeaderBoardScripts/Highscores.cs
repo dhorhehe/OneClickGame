@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,12 +10,14 @@ public class ScoreEntry
 {
     public string Name { get; set; }
     public int Score { get; set; }
+    public int Position { get; set; }
 }
 
 //Workaround since unity's json lib does not allow for renaming (We dont like members with lowercase)
 [Serializable]
 internal class ScoreEntryJSON
 {
+    public int position;
     public string name;
     public int score;
 }
@@ -41,12 +44,24 @@ public static class Highscores
         ICollection<ScoreEntry> entries;
         using (WebClient wc = new WebClient())
         {
-            string json = wc.DownloadString(ApiLink + "?orderBy=score&limit=" + limit);
+            string json = wc.DownloadString(ApiLink + "/Top/" + limit);
             entries = Deserialize(json);
         }
 
         return entries;
     }
+
+    public static ScoreEntry GetBestByUser(string name)
+    {
+        ICollection<ScoreEntry> entries;
+        using (WebClient wc = new WebClient())
+        {
+            string json = wc.DownloadString(ApiLink + "/Best/" + name);
+            entries = Deserialize(json);
+        }
+
+        return entries.First();
+    } 
 
     public static void PostHighscore(string name, int score)
     {
@@ -72,6 +87,6 @@ public static class Highscores
     {
         json = "{ \"data\": " + json + "}"; //Workaround to make unity's json lib working
         ICollection<ScoreEntryJSON> scores = JsonUtility.FromJson<ScoreEntryCollectionJsonWrapper>(json).data;
-        return scores.Select(x => new ScoreEntry() {Score = x.score, Name = x.name}).ToList();
+        return scores.Select(x => new ScoreEntry() {Score = x.score, Name = x.name, Position = x.position}).ToList();
     }
 }

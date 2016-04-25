@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class HighscoresExample : MonoBehaviour {
-
-	// Use this for initialization
-	void Start ()
+public class HighscoresExample : MonoBehaviour
+{
+    // Use this for initialization
+    void Start ()
     {
+        PrintBestScore();
         PrintTopScores();
     }
 
@@ -25,8 +26,14 @@ public class HighscoresExample : MonoBehaviour {
 
         foreach (ScoreEntry score in scores)
         {
-            Debug.Log(score.Name + " " + score.Score);
+            Debug.Log("#" + score.Position + " " + score.Name + " " + score.Score);
         }
+    }
 
+    void PrintBestScore(string name = "Jonas")
+    {
+        ScoreEntry score = Highscores.GetBestByUser(name);
+        Debug.Log("Best score for " + name + ":");
+        Debug.Log("#" + score.Position + " " + score.Name + " " + score.Score);
     }
 }
