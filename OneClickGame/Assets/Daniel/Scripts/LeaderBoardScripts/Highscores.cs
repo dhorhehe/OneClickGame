@@ -62,7 +62,9 @@ public static class Highscores
             entries = Deserialize(json);
         }
 
-        return entries.First();
+
+
+        return entries.FirstOrDefault();
     } 
 
     public static IEnumerator PostHighscore(string name, int score)

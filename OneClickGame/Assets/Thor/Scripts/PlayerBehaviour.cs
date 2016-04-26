@@ -38,6 +38,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool gameOver;
     public bool firstStart;
     public bool extraHPUsed;
+    private bool highScorePosted;
     
     
     //Sprites
@@ -50,6 +51,15 @@ public class PlayerBehaviour : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        //PlayerPrefs.SetInt("highScore", 0);
+
+	    if (PlayerPrefs.GetInt("PlayedOnce") == 0)
+	    {
+	        SceneManager.LoadScene(1);
+	    }
+
+	    Debug.Log(PlayerPrefs.GetString("currentName"));
+
         rb = GetComponent<Rigidbody2D>();
 	    move = 1;
 	    gameOver = true;
@@ -64,7 +74,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	    score = 0;
 
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
 
 	    firstStart = true;
 
@@ -191,7 +201,10 @@ public class PlayerBehaviour : MonoBehaviour
                     GameOverUI.SetActive(true);
                     
                     Dead();
-            }
+
+                 PostHighscore();
+
+             }
         }
 
         if (extraHPUsed)
@@ -254,6 +267,18 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
 
+    }
+
+    void PostHighscore()
+    {
+        if (!highScorePosted)
+        {
+            Debug.Log(score);
+            StartCoroutine(Highscores.PostHighscore(PlayerPrefs.GetString("currentName"), score));
+
+            Debug.Log("NEW HIGHSCORE");
+            highScorePosted = true;
+        }
     }
 
     public void RestartControl()

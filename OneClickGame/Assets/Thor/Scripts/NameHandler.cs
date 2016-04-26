@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class NameHandler : MonoBehaviour
@@ -16,13 +17,13 @@ public class NameHandler : MonoBehaviour
 	    newName = PlayerPrefs.GetString("NewName");
 
 
-        gameObject.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "Enter name here...";
+        gameObject.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "ENTER NEW USERNAME...";
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-        Debug.Log(currentName);
+        //Debug.Log(currentName);
 
 	    newName = GetComponentInChildren<InputField>().text;
     }
@@ -31,10 +32,21 @@ public class NameHandler : MonoBehaviour
     {
         if (currentName == null || currentName != newName)
         {
-            PlayerPrefs.SetString("currentName", newName);
-            //PlayerPrefs.SetString("newName",currentName);
-            PlayerPrefs.Save();
+            ScoreEntry score = Highscores.GetBestByUser(newName);
+
+            if (score == null)
+            {
+                PlayerPrefs.SetString("currentName", newName);
+                PlayerPrefs.SetInt("PlayedOnce", 1);
+                PlayerPrefs.Save();
+                
+
+                SceneManager.LoadScene(0);
+            }
+            else
+            {
+                Debug.Log("USERNAME TAKEN!");
+            }
         }
-        Debug.Log("Gay");
     }
 }

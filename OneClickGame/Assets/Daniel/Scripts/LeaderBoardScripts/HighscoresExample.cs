@@ -39,8 +39,8 @@ public class HighscoresExample : MonoBehaviour
     void PrintBestScore(string name = "Jonas")
     {
         ScoreEntry score = Highscores.GetBestByUser(name);
-        Debug.Log("Best score for " + name + ":");
-        Debug.Log("#" + score.Position + " " + score.Name + " " + score.Score);
+        //Debug.Log("Best score for " + name + ":");
+        //Debug.Log("#" + score.Position + " " + score.Name + " " + score.Score);
     }
 
     public void OpenLeaderboardMenu()
