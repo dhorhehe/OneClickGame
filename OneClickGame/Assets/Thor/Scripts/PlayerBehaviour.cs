@@ -33,6 +33,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject GameOverHighScore2;
     public GameObject Camera;
     public GameObject ExtraLifeUI;
+    public GameObject RankText;
 
     //Bools
     public bool gameOver;
@@ -273,8 +274,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (!highScorePosted)
         {
-            Debug.Log(score);
             StartCoroutine(Highscores.PostHighscore(PlayerPrefs.GetString("currentName"), score));
+
+
+            ScoreEntry pos = Highscores.GetBestByUser(PlayerPrefs.GetString("currentName"));
+            RankText.GetComponent<Text>().text = "YOUR RANK: " + pos.Position;
 
             Debug.Log("NEW HIGHSCORE");
             highScorePosted = true;

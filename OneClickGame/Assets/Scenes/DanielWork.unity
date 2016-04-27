@@ -1649,6 +1649,10 @@ Prefab:
       propertyPath: _audioSourceIGUI
       value: 
       objectReference: {fileID: 600375489}
+    - target: {fileID: 11418628, guid: 6459afd30f5015c4cbfdd3123d90d6ad, type: 2}
+      propertyPath: RankText
+      value: 
+      objectReference: {fileID: 1538545079}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6459afd30f5015c4cbfdd3123d90d6ad, type: 2}
   m_IsPrefabParent: 0
@@ -2080,6 +2084,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
+--- !u!1 &1538545079 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 112210, guid: 42c0640cf78dce048bee1f8916ac66b8, type: 2}
+  m_PrefabInternal: {fileID: 1669970427}
 --- !u!1 &1541646008
 GameObject:
   m_ObjectHideFlags: 0
