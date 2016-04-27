@@ -40,6 +40,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool firstStart;
     public bool extraHPUsed;
     private bool highScorePosted;
+    private bool showNewHighscoreUI;
     
     
     //Sprites
@@ -203,7 +204,7 @@ public class PlayerBehaviour : MonoBehaviour
                     
                     Dead();
 
-
+                    PostHighscore();
 
              }
         }
@@ -266,7 +267,7 @@ public class PlayerBehaviour : MonoBehaviour
             PlayerPrefs.SetInt("highScore",score);
             PlayerPrefs.Save();
 
-            PostHighscore();
+            showNewHighscoreUI = true;
         }
 
 
@@ -278,7 +279,11 @@ public class PlayerBehaviour : MonoBehaviour
         {
             StartCoroutine(Highscores.PostHighscore(PlayerPrefs.GetString("currentName"), score));
 
-            NewHighUI.SetActive(true);
+            if (showNewHighscoreUI)
+            {
+                NewHighUI.SetActive(true);
+            }
+
             Debug.Log("NEW HIGHSCORE");
             highScorePosted = true;
         }
