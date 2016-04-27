@@ -74,7 +74,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	    score = 0;
 
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
 
 	    firstStart = true;
 

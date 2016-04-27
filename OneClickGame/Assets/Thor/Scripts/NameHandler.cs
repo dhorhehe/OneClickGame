@@ -40,6 +40,7 @@ public class NameHandler : MonoBehaviour
                 PlayerPrefs.SetInt("PlayedOnce", 1);
                 PlayerPrefs.Save();
                 
+                
 
                 SceneManager.LoadScene(0);
             }
