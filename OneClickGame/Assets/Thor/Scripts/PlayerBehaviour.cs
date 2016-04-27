@@ -21,6 +21,9 @@ public class PlayerBehaviour : MonoBehaviour
     public float scoreDelay;
     public float scoreTimer;
     public float DeadSpeed;
+    private float colorTimer;
+    public float colorSwitchCool;
+    private int whatColor;
 
     //Gameobjects
     private GameObject spawnPoint;
@@ -32,8 +35,8 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject GameOverHighScore;
     public GameObject GameOverHighScore2;
     public GameObject Camera;
-    public GameObject ExtraLifeUI;
     public GameObject NewHighUI;
+    public GameObject TestSprite;
 
     //Bools
     public bool gameOver;
@@ -41,7 +44,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool extraHPUsed;
     private bool highScorePosted;
     private bool showNewHighscoreUI;
-    
+    private bool loosingExtraLife;
     
     //Sprites & materials
     public Sprite DeadSprite;
@@ -52,7 +55,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 	// Use this for initialization
 	void Start ()
-    {
+	{
+	    colorTimer = colorSwitchCool + 1;
         //PlayerPrefs.SetInt("highScore", 0);
 
 	    if (PlayerPrefs.GetInt("PlayedOnce") == 0)
@@ -105,6 +109,7 @@ public class PlayerBehaviour : MonoBehaviour
         Movement();
         Rotation();
         Score();
+        SpriteColorControl();
         //Debug.Log(extraHPUsed);
         //Debug.Log(highScore);
 
@@ -207,9 +212,6 @@ public class PlayerBehaviour : MonoBehaviour
                     Dead();
 
                     PostHighscore();
-
-                    
-
              }
         }
 
@@ -224,8 +226,8 @@ public class PlayerBehaviour : MonoBehaviour
             if (hitY.collider != null && hitY.collider.name != "Player" || hitY2.collider != null && hitY2.collider.name != "Player" || hitX.collider != null && hitX.collider.name != "Player")
             {
                 Camera.GetComponent<CameraShakeScript>().shakeDuration = 0.1f;
+                loosingExtraLife = true;
                 StartCoroutine(WaitAndDelay(0.7f));
-                ExtraLifeUI.SetActive(true);
             }
         }
 
@@ -281,11 +283,10 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (!highScorePosted)
         {
-            StartCoroutine(Highscores.PostHighscore(PlayerPrefs.GetString("currentName"), score));
-
             if (showNewHighscoreUI)
             {
                 NewHighUI.SetActive(true);
+                StartCoroutine(Highscores.PostHighscore(PlayerPrefs.GetString("currentName"), score));
             }
 
             Debug.Log("NEW HIGHSCORE");
@@ -315,12 +316,39 @@ public class PlayerBehaviour : MonoBehaviour
     IEnumerator WaitAndDelay(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-
+        loosingExtraLife = false;
         extraHPUsed = false;
         PlayerPrefs.SetInt("UseExtraLife", 0);
         
     }
 
-    
+    void SpriteColorControl()
+    {
+        if (loosingExtraLife)
+        {
+            colorTimer += Time.deltaTime;
+
+            if (colorTimer > colorSwitchCool)
+            {
+                Debug.Log("SWITCH");
+                if (whatColor == 0)
+                {
+                    TestSprite.GetComponent<SpriteRenderer>().color = new Color(159, 0, 0, 255);
+                    whatColor = 1;
+                }
+                else
+                {
+                    TestSprite.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+                    whatColor = 0;
+                }
+                colorTimer = 0;
+            }
+        }
+        else
+        {
+            TestSprite.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+            whatColor = 0;
+        }
+    }
 
 }
