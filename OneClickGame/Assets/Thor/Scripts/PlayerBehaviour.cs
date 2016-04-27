@@ -33,6 +33,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject GameOverHighScore2;
     public GameObject Camera;
     public GameObject ExtraLifeUI;
+    public GameObject NewHighUI;
 
     //Bools
     public bool gameOver;
@@ -202,7 +203,7 @@ public class PlayerBehaviour : MonoBehaviour
                     
                     Dead();
 
-                 PostHighscore();
+
 
              }
         }
@@ -264,6 +265,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             PlayerPrefs.SetInt("highScore",score);
             PlayerPrefs.Save();
+
+            PostHighscore();
         }
 
 
@@ -275,6 +278,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             StartCoroutine(Highscores.PostHighscore(PlayerPrefs.GetString("currentName"), score));
 
+            NewHighUI.SetActive(true);
             Debug.Log("NEW HIGHSCORE");
             highScorePosted = true;
         }
