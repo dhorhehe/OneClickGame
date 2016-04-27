@@ -77,6 +77,7 @@ public class PlayerBehaviour : MonoBehaviour
 	    score = 0;
 
         //PlayerPrefs.DeleteAll();
+        //So I can sync:))))))))))
 
 	    firstStart = true;
 
