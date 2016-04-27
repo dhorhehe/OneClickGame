@@ -43,7 +43,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool showNewHighscoreUI;
     
     
-    //Sprites
+    //Sprites & materials
     public Sprite DeadSprite;
 
     //Sound
@@ -177,6 +177,7 @@ public class PlayerBehaviour : MonoBehaviour
 
              if (hitY.collider != null && hitY.collider.name != "Player" || hitX.collider != null && hitX.collider.name != "Player")
              {
+                    
                     gameOver = true;
                     firstStart = false;
                     rb.velocity = new Vector2(0,rb.velocity.y);
@@ -206,6 +207,8 @@ public class PlayerBehaviour : MonoBehaviour
                     Dead();
 
                     PostHighscore();
+
+                    
 
              }
         }
@@ -315,6 +318,9 @@ public class PlayerBehaviour : MonoBehaviour
 
         extraHPUsed = false;
         PlayerPrefs.SetInt("UseExtraLife", 0);
+        
     }
+
+    
 
 }
