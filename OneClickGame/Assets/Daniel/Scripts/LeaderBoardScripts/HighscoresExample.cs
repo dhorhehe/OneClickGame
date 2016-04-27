@@ -7,6 +7,7 @@ public class HighscoresExample : MonoBehaviour
     public GameObject CanvasLeader;
     public GameObject[] LeaderNames;
     public GameObject[] LeaderScores;
+    public GameObject RankText;
 
     void Start ()
     {
@@ -46,6 +47,9 @@ public class HighscoresExample : MonoBehaviour
     public void OpenLeaderboardMenu()
     {
         CanvasLeader.SetActive(true);
+
+        ScoreEntry pos = Highscores.GetBestByUser(PlayerPrefs.GetString("currentName"));
+        RankText.GetComponent<Text>().text = "YOUR RANK: " + pos.Position;
 
         PrintTopScores();
     }

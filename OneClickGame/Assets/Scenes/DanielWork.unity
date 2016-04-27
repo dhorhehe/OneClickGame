@@ -651,6 +651,10 @@ Prefab:
       propertyPath: LeaderScores.Array.data[9]
       value: 
       objectReference: {fileID: 1963015978}
+    - target: {fileID: 11433382, guid: e49d2872618c7eb40b737c20299f8bc5, type: 2}
+      propertyPath: RankText
+      value: 
+      objectReference: {fileID: 1538545079}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e49d2872618c7eb40b737c20299f8bc5, type: 2}
   m_IsPrefabParent: 0

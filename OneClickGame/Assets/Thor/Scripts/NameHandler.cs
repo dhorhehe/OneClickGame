@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class NameHandler : MonoBehaviour
 
     private string newName;
     public static string currentName;
+    public GameObject UserNameTaken;
 
 
 	// Use this for initialization
@@ -30,23 +32,28 @@ public class NameHandler : MonoBehaviour
 
     public void NameHandlerFunction()
     {
-        if (currentName == null || currentName != newName)
+        if (currentName == null|| currentName != newName)
         {
-            ScoreEntry score = Highscores.GetBestByUser(newName);
-
-            if (score == null)
+            if (!String.IsNullOrEmpty(newName))
             {
-                PlayerPrefs.SetString("currentName", newName);
-                PlayerPrefs.SetInt("PlayedOnce", 1);
-                PlayerPrefs.Save();
-                
-                
+                ScoreEntry score = Highscores.GetBestByUser(newName);
 
-                SceneManager.LoadScene(0);
-            }
-            else
-            {
-                Debug.Log("USERNAME TAKEN!");
+                if (score == null)
+                {
+                    PlayerPrefs.SetString("currentName", newName);
+                    PlayerPrefs.SetInt("PlayedOnce", 1);
+                    PlayerPrefs.Save();
+
+
+
+                    SceneManager.LoadScene(0);
+                }
+                else
+                {
+                    Debug.Log("USERNAME TAKEN!");
+                    UserNameTaken.SetActive(false);
+                    UserNameTaken.SetActive(true);
+                }
             }
         }
     }
